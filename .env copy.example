@@ -1,7 +1,7 @@
 DATABASE_URL="postgres://myuser:mypassword@localhost:5432/ramaera-db"
 
 # Nest
-PORT=3000
+PORT= 3000
 
 # Security
 JWT_ACCESS_SECRET=nestjsPrismaAccessSecret
