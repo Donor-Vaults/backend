@@ -1,0 +1,75 @@
+//// ------------------------------------------------------
+//// THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+//// ------------------------------------------------------
+
+Table User {
+  id String [pk]
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  email String [unique]
+  password String [not null]
+  name String
+  father_or_husband_name String
+  mobile_number String
+  alternate_mobile_number String
+  documents Document [not null]
+  nominee Nominee
+  kyc KYC [not null, default: 'NOT_INITIALIZED']
+  role Role [not null]
+  membership Membership [not null, default: 'BASIC']
+  date_of_birth String
+  demat_account String
+  private_key String [unique]
+  pw_id String [unique]
+  rm_id String [unique]
+}
+
+Table Document {
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [default: `now()`, not null]
+  id String [pk]
+  title String [not null]
+  url String [not null]
+  user User
+  userId String
+  status STATUS [not null, default: 'PENDING']
+}
+
+Table Nominee {
+  createdAt DateTime [default: `now()`, not null]
+  updatedAt DateTime [not null]
+  user User
+  userId String [unique, not null]
+  name String
+  relationship String [not null]
+  id String [pk]
+}
+
+Enum Role {
+  ADMIN
+  USER
+}
+
+Enum Membership {
+  BASIC
+  ADVANCE
+}
+
+Enum KYC {
+  NOT_INITIALIZED
+  SUBMITTED
+  ONGOING
+  REJECTED
+  APPROVED
+}
+
+Enum STATUS {
+  NOT_INITILAIZED
+  PENDING
+  APPROVED
+  REJECTED
+}
+
+Ref: Document.userId > User.id
+
+Ref: Nominee.userId - User.id

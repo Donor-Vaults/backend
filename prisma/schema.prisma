@@ -1,0 +1,109 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+generator nestgraphql {
+  provider = "node node_modules/prisma-nestjs-graphql"
+  output                                = "../src/@generated"
+  noAtomicOperations                    = false
+  combineScalarFilters                  = false
+  reExport                              = None
+  emitSingle                            = false
+  emitCompiled                          = false
+  purgeOutput                           = false
+  requireSingleFieldsInWhereUniqueInput = false
+  fields_Validator_from                 = "class-validator"
+  fields_Validator_input                = true
+  fields_Scalars_from                   = "graphql-scalars"
+  fields_Scalars_input                  = true
+  useInputType_WhereInput_ALL           = "WhereInput"
+  decorate_1_type                       = "Create@(One|Many)UserArgs"
+  decorate_1_field                      = data
+  decorate_1_name                       = ValidateNested
+  decorate_1_from                       = "class-validator"
+  decorate_1_arguments                  = "[]"
+  decorate_2_type                       = "Create@(One|Many)UserArgs"
+  decorate_2_field                      = data
+  decorate_2_from                       = "class-transformer"
+  decorate_2_arguments                  = "['() => {propertyType.0}']"
+  decorate_2_name                       = Type
+  decorate_2_namedImport                = true
+  decorate_3_type                       = "ProfileUncheckedCreateNestedOneWithoutUserInput"
+  decorate_3_field                      = "!(create)"
+  decorate_3_name                       = "HideField"
+  decorate_3_from                       = "@nestjs/graphql"
+  decorate_3_arguments                  = "[]"
+}
+
+model User {
+  id            String       @id @default(cuid())
+  createdAt     DateTime     @default(now())
+  updatedAt     DateTime     @updatedAt
+  email         String?      @unique
+  name          String?
+  mobile_number String?
+  date_of_birth DateTime?
+  country       String?
+  password      String
+  isVerified    Boolean      @default(false)
+  fundraisers   FundRaiser[]
+  kyc_status    KYC     @default(NOT_INITIALIZED)
+  user_role   Role    @default(USER)
+  selfie String?
+}
+
+// model FundRaiserDocument {
+//   createdAt    DateTime    @default(now())
+//   updatedAt    DateTime    @default(now()) @updatedAt()
+//   id           String      @id @default(cuid())
+//   title        String
+//   url          String
+//   status       STATUS      @default(PENDING)
+//   fundRaiser   FundRaiser? @relation(fields: [fundRaiserId], references: [id])
+//   fundRaiserId String?
+// }
+
+model FundRaiser {
+  createdAt             DateTime   @default(now())
+  updatedAt             DateTime   @default(now()) @updatedAt()
+  id                    String     @id @default(cuid())
+  benificiary           String
+  category              String
+  featuredImage         String
+  firstName             String
+  lastName              String
+  fundraiserName        String
+  fundraiserDescription String
+  goalAmount            Int
+  supportingDocuments   String[]
+  createdBy             User      @relation(fields: [userId], references: [id])
+  userId                String
+  fundraisers_status    STATUS     @default(PENDING)
+  contract_address String?
+
+}
+
+enum Role {
+  ADMIN
+  USER
+}
+
+enum KYC {
+  NOT_INITIALIZED
+  SUBMITTED
+  ONGOING
+  REJECTED
+  APPROVED
+}
+
+enum STATUS {
+  NOT_INITILAIZED
+  PENDING
+  APPROVED
+  REJECTED
+}
