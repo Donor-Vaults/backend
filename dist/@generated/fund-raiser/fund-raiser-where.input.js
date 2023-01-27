@@ -17,7 +17,7 @@ const date_time_filter_input_1 = require("../prisma/date-time-filter.input");
 const string_filter_input_1 = require("../prisma/string-filter.input");
 const int_filter_input_1 = require("../prisma/int-filter.input");
 const string_nullable_list_filter_input_1 = require("../prisma/string-nullable-list-filter.input");
-const user_where_input_1 = require("../user/user-where.input");
+const user_relation_filter_input_1 = require("../user/user-relation-filter.input");
 const enum_status_filter_input_1 = require("../prisma/enum-status-filter.input");
 const string_nullable_filter_input_1 = require("../prisma/string-nullable-filter.input");
 let FundRaiserWhereInput = FundRaiserWhereInput_1 = class FundRaiserWhereInput {
@@ -86,8 +86,8 @@ __decorate([
     __metadata("design:type", string_nullable_list_filter_input_1.StringNullableListFilter)
 ], FundRaiserWhereInput.prototype, "supportingDocuments", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => user_where_input_1.UserWhereInput, { nullable: true }),
-    __metadata("design:type", user_where_input_1.UserWhereInput)
+    (0, graphql_1.Field)(() => user_relation_filter_input_1.UserRelationFilter, { nullable: true }),
+    __metadata("design:type", user_relation_filter_input_1.UserRelationFilter)
 ], FundRaiserWhereInput.prototype, "createdBy", void 0);
 __decorate([
     (0, graphql_1.Field)(() => string_filter_input_1.StringFilter, { nullable: true }),

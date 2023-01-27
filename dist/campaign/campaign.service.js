@@ -16,6 +16,14 @@ let CampaignsService = class CampaignsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async updateCampaign(campaingId, data) {
+        return this.prisma.fundRaiser.update({
+            data: data.data,
+            where: {
+                id: campaingId,
+            },
+        });
+    }
     async createCampaign(user, data) {
         return this.prisma.fundRaiser.create({
             data: Object.assign(Object.assign({}, data.data), { userId: user.id }),

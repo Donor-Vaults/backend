@@ -47,8 +47,8 @@ export class FundRaiserUpdateInput {
     @Field(() => FundRaiserUpdatesupportingDocumentsInput, {nullable:true})
     supportingDocuments?: FundRaiserUpdatesupportingDocumentsInput;
 
-    @Field(() => UserUpdateOneRequiredWithoutFundraisersNestedInput, {nullable:true})
-    createdBy?: UserUpdateOneRequiredWithoutFundraisersNestedInput;
+    // @Field(() => UserUpdateOneRequiredWithoutFundraisersNestedInput, {nullable:true})
+    // createdBy?: UserUpdateOneRequiredWithoutFundraisersNestedInput;
 
     @Field(() => EnumSTATUSFieldUpdateOperationsInput, {nullable:true})
     fundraisers_status?: EnumSTATUSFieldUpdateOperationsInput;

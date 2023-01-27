@@ -61,7 +61,6 @@ async users(
 
   if (user.user_role !== "ADMIN") {
     throw new Error("Not Allowed")
-     
   }
   const select = new PrismaSelect(info).value;
   // console.log('select', select);

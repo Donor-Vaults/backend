@@ -4,7 +4,7 @@ import { DateTimeFilter } from '../prisma/date-time-filter.input';
 import { StringFilter } from '../prisma/string-filter.input';
 import { IntFilter } from '../prisma/int-filter.input';
 import { StringNullableListFilter } from '../prisma/string-nullable-list-filter.input';
-import { UserWhereInput } from '../user/user-where.input';
+import { UserRelationFilter } from '../user/user-relation-filter.input';
 import { EnumSTATUSFilter } from '../prisma/enum-status-filter.input';
 import { StringNullableFilter } from '../prisma/string-nullable-filter.input';
 
@@ -56,8 +56,8 @@ export class FundRaiserWhereInput {
     @Field(() => StringNullableListFilter, {nullable:true})
     supportingDocuments?: StringNullableListFilter;
 
-    @Field(() => UserWhereInput, {nullable:true})
-    createdBy?: UserWhereInput;
+    @Field(() => UserRelationFilter, {nullable:true})
+    createdBy?: UserRelationFilter;
 
     @Field(() => StringFilter, {nullable:true})
     userId?: StringFilter;

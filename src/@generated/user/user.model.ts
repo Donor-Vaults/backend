@@ -6,7 +6,7 @@ import { KYC } from '../prisma/kyc.enum';
 import { Role } from '../prisma/role.enum';
 import { UserCount } from './user-count.output';
 
-@ObjectType("user")
+@ObjectType("UserData")
 export class User {
 
     @Field(() => ID, {nullable:false})

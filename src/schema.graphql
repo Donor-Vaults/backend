@@ -63,14 +63,14 @@ input EnumKYCFilter {
 }
 
 input EnumRoleFieldUpdateOperationsInput {
-  set: RoleEnum
+  set: UserRole
 }
 
 input EnumRoleFilter {
-  equals: RoleEnum
-  in: [RoleEnum!]
+  equals: UserRole
+  in: [UserRole!]
   not: NestedEnumRoleFilter
-  notIn: [RoleEnum!]
+  notIn: [UserRole!]
 }
 
 input EnumSTATUSFieldUpdateOperationsInput {
@@ -89,7 +89,7 @@ type FundRaiser {
   category: String!
   contract_address: String
   createdAt: DateTime!
-  createdBy: user!
+  createdBy: UserData!
   featuredImage: String!
   firstName: String!
   fundraiserDescription: String!
@@ -195,6 +195,23 @@ input FundRaiserScalarWhereInput {
   userId: StringFilter
 }
 
+input FundRaiserUpdateInput {
+  benificiary: StringFieldUpdateOperationsInput
+  category: StringFieldUpdateOperationsInput
+  contract_address: NullableStringFieldUpdateOperationsInput
+  createdAt: DateTimeFieldUpdateOperationsInput
+  featuredImage: StringFieldUpdateOperationsInput
+  firstName: StringFieldUpdateOperationsInput
+  fundraiserDescription: StringFieldUpdateOperationsInput
+  fundraiserName: StringFieldUpdateOperationsInput
+  fundraisers_status: EnumSTATUSFieldUpdateOperationsInput
+  goalAmount: IntFieldUpdateOperationsInput
+  id: StringFieldUpdateOperationsInput
+  lastName: StringFieldUpdateOperationsInput
+  supportingDocuments: FundRaiserUpdatesupportingDocumentsInput
+  updatedAt: DateTimeFieldUpdateOperationsInput
+}
+
 input FundRaiserUpdateManyMutationInput {
   benificiary: StringFieldUpdateOperationsInput
   category: StringFieldUpdateOperationsInput
@@ -272,7 +289,7 @@ input FundRaiserWhereInput {
   category: StringFilter
   contract_address: StringNullableFilter
   createdAt: DateTimeFilter
-  createdBy: UserWhereInput
+  createdBy: UserRelationFilter
   featuredImage: StringFilter
   firstName: StringFilter
   fundraiserDescription: StringFilter
@@ -342,7 +359,8 @@ type Mutation {
   passwordresetRequest(data: PasswordRequestInput!): Auth!
   refreshToken(token: JWT!): Token!
   signup(data: SignupInput!): Auth!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): user!
+  updateCampaign(data: FundRaiserUpdateInput!, where: FundRaiserWhereUniqueInput!): FundRaiser!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): UserData!
 }
 
 input NestedBoolFilter {
@@ -380,10 +398,10 @@ input NestedEnumKYCFilter {
 }
 
 input NestedEnumRoleFilter {
-  equals: RoleEnum
-  in: [RoleEnum!]
+  equals: UserRole
+  in: [UserRole!]
   not: NestedEnumRoleFilter
-  notIn: [RoleEnum!]
+  notIn: [UserRole!]
 }
 
 input NestedEnumSTATUSFilter {
@@ -456,8 +474,8 @@ type Query {
   fundraisers(where: FundRaiserWhereInput!): [FundRaiser!]!
   hello(name: String!): String!
   helloWorld: String!
-  me: user!
-  users(where: UserWhereInput!): [user!]!
+  me: UserData!
+  users(where: UserWhereInput!): [UserData!]!
 }
 
 enum QueryMode {
@@ -467,11 +485,6 @@ enum QueryMode {
 
 """User role"""
 enum Role {
-  ADMIN
-  USER
-}
-
-enum RoleEnum {
   ADMIN
   USER
 }
@@ -564,6 +577,34 @@ type UserCount {
   fundraisers: Int!
 }
 
+type UserData {
+  _count: UserCount!
+  country: String
+  createdAt: DateTime!
+  date_of_birth: DateTime
+  email: String
+  fundraisers: [FundRaiser!]
+  id: ID!
+  isVerified: Boolean!
+  kyc_status: KYCEnum!
+  mobile_number: String
+  name: String
+  password: String!
+  selfie: String
+  updatedAt: DateTime!
+  user_role: UserRole!
+}
+
+input UserRelationFilter {
+  is: UserWhereInput
+  isNot: UserWhereInput
+}
+
+enum UserRole {
+  ADMIN
+  USER
+}
+
 input UserUpdateInput {
   country: NullableStringFieldUpdateOperationsInput
   createdAt: DateTimeFieldUpdateOperationsInput
@@ -604,22 +645,4 @@ input UserWhereInput {
 input UserWhereUniqueInput {
   email: String
   id: String
-}
-
-type user {
-  _count: UserCount!
-  country: String
-  createdAt: DateTime!
-  date_of_birth: DateTime
-  email: String
-  fundraisers: [FundRaiser!]
-  id: ID!
-  isVerified: Boolean!
-  kyc_status: KYCEnum!
-  mobile_number: String
-  name: String
-  password: String!
-  selfie: String
-  updatedAt: DateTime!
-  user_role: RoleEnum!
 }

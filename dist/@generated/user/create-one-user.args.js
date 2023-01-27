@@ -14,7 +14,6 @@ const graphql_1 = require("@nestjs/graphql");
 const graphql_2 = require("@nestjs/graphql");
 const user_create_input_1 = require("./user-create.input");
 const class_transformer_1 = require("class-transformer");
-const class_validator_1 = require("class-validator");
 let CreateOneUserArgs = class CreateOneUserArgs {
     static _GRAPHQL_METADATA_FACTORY() {
         return {};
@@ -22,8 +21,6 @@ let CreateOneUserArgs = class CreateOneUserArgs {
 };
 __decorate([
     (0, graphql_1.Field)(() => user_create_input_1.UserCreateInput, { nullable: false }),
-    (0, class_transformer_1.Type)(() => user_create_input_1.UserCreateInput),
-    (0, class_validator_1.ValidateNested)(),
     (0, class_transformer_1.Type)(() => user_create_input_1.UserCreateInput),
     __metadata("design:type", user_create_input_1.UserCreateInput)
 ], CreateOneUserArgs.prototype, "data", void 0);

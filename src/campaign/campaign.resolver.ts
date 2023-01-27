@@ -23,6 +23,7 @@ import { User } from 'src/@generated/user/user.model';
 import { FundRaiserWhereInput } from 'src/@generated/fund-raiser/fund-raiser-where.input';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
+import { UpdateOneFundRaiserArgs } from 'src/@generated/fund-raiser/update-one-fund-raiser.args';
 
 @Resolver(() => FundRaiser)
 export class CampaignsResolver {
@@ -76,15 +77,18 @@ export class CampaignsResolver {
     return campaigns;
   }
 
-  // @UseGuards(GqlAuthGuard)
-  // @Mutation(() => Teqw)
-  // async updateCampaign(
-  // @UserEntity()
-  // user: User,
-  //   @Args('data')
-  //   data: CreateCampaignInput
-  // ) {
-  //   // await this.campaignService.updateCampaign(data);
-  //   return { title: 'papa', url: 'bo' };
-  // }
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => FundRaiser)
+  async updateCampaign(
+  @UserEntity()
+    user: User,
+    @Args('') newData: UpdateOneFundRaiserArgs
+  ) {
+
+    if (user.user_role !== "ADMIN") {
+      throw new Error("Not Allowed")
+    }
+    return await this.campaignService.updateCampaign(newData.where.id, newData);
+    // return { title: 'papa', url: 'bo' };
+  }
 }

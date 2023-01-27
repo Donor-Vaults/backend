@@ -83,7 +83,7 @@ __decorate([
     __metadata("design:type", user_count_output_1.UserCount)
 ], User.prototype, "_count", void 0);
 User = __decorate([
-    (0, graphql_2.ObjectType)("user")
+    (0, graphql_2.ObjectType)("UserData")
 ], User);
 exports.User = User;
 //# sourceMappingURL=user.model.js.map

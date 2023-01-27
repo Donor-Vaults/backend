@@ -24,6 +24,7 @@ const user_decorator_1 = require("../common/decorators/user.decorator");
 const user_model_1 = require("../@generated/user/user.model");
 const fund_raiser_where_input_1 = require("../@generated/fund-raiser/fund-raiser-where.input");
 const plugins_1 = require("@paljs/plugins");
+const update_one_fund_raiser_args_1 = require("../@generated/fund-raiser/update-one-fund-raiser.args");
 let CampaignsResolver = class CampaignsResolver {
     constructor(campaignService, prisma) {
         this.campaignService = campaignService;
@@ -37,6 +38,12 @@ let CampaignsResolver = class CampaignsResolver {
         const select = new plugins_1.PrismaSelect(info).value;
         const campaigns = await this.prisma.fundRaiser.findMany(Object.assign({ where }, select));
         return campaigns;
+    }
+    async updateCampaign(user, newData) {
+        if (user.user_role !== "ADMIN") {
+            throw new Error("Not Allowed");
+        }
+        return await this.campaignService.updateCampaign(newData.where.id, newData);
     }
 };
 __decorate([
@@ -57,6 +64,16 @@ __decorate([
     __metadata("design:paramtypes", [fund_raiser_where_input_1.FundRaiserWhereInput, Object]),
     __metadata("design:returntype", Promise)
 ], CampaignsResolver.prototype, "fundraisers", null);
+__decorate([
+    (0, common_1.UseGuards)(gql_auth_guard_1.GqlAuthGuard),
+    (0, graphql_1.Mutation)(() => fund_raiser_model_1.FundRaiser),
+    __param(0, (0, user_decorator_1.UserEntity)()),
+    __param(1, (0, graphql_1.Args)('')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_model_1.User,
+        update_one_fund_raiser_args_1.UpdateOneFundRaiserArgs]),
+    __metadata("design:returntype", Promise)
+], CampaignsResolver.prototype, "updateCampaign", null);
 CampaignsResolver = __decorate([
     (0, graphql_1.Resolver)(() => fund_raiser_model_1.FundRaiser),
     __metadata("design:paramtypes", [campaign_service_1.CampaignsService,

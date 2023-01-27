@@ -16,7 +16,6 @@ const date_time_field_update_operations_input_1 = require("../prisma/date-time-f
 const string_field_update_operations_input_1 = require("../prisma/string-field-update-operations.input");
 const int_field_update_operations_input_1 = require("../prisma/int-field-update-operations.input");
 const fund_raiser_updatesupporting_documents_input_1 = require("./fund-raiser-updatesupporting-documents.input");
-const user_update_one_required_without_fundraisers_nested_input_1 = require("../user/user-update-one-required-without-fundraisers-nested.input");
 const enum_status_field_update_operations_input_1 = require("../prisma/enum-status-field-update-operations.input");
 const nullable_string_field_update_operations_input_1 = require("../prisma/nullable-string-field-update-operations.input");
 let FundRaiserUpdateInput = class FundRaiserUpdateInput {
@@ -72,10 +71,6 @@ __decorate([
     (0, graphql_1.Field)(() => fund_raiser_updatesupporting_documents_input_1.FundRaiserUpdatesupportingDocumentsInput, { nullable: true }),
     __metadata("design:type", fund_raiser_updatesupporting_documents_input_1.FundRaiserUpdatesupportingDocumentsInput)
 ], FundRaiserUpdateInput.prototype, "supportingDocuments", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => user_update_one_required_without_fundraisers_nested_input_1.UserUpdateOneRequiredWithoutFundraisersNestedInput, { nullable: true }),
-    __metadata("design:type", user_update_one_required_without_fundraisers_nested_input_1.UserUpdateOneRequiredWithoutFundraisersNestedInput)
-], FundRaiserUpdateInput.prototype, "createdBy", void 0);
 __decorate([
     (0, graphql_1.Field)(() => enum_status_field_update_operations_input_1.EnumSTATUSFieldUpdateOperationsInput, { nullable: true }),
     __metadata("design:type", enum_status_field_update_operations_input_1.EnumSTATUSFieldUpdateOperationsInput)
