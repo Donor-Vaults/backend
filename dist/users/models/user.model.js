@@ -86,10 +86,6 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "demat_account", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => String, { nullable: true }),
-    __metadata("design:type", String)
-], User.prototype, "pw_id", void 0);
 User = __decorate([
     (0, graphql_1.ObjectType)()
 ], User);

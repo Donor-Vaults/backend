@@ -36,14 +36,12 @@ export class UserUpdateInput {
     @Field(() => NullableStringFieldUpdateOperationsInput, {nullable:true})
     country?: NullableStringFieldUpdateOperationsInput;
 
-    @Field(() => StringFieldUpdateOperationsInput, {nullable:true})
-    password?: StringFieldUpdateOperationsInput;
-
+    
     @Field(() => BoolFieldUpdateOperationsInput, {nullable:true})
     isVerified?: BoolFieldUpdateOperationsInput;
 
-    @Field(() => FundRaiserUpdateManyWithoutCreatedByNestedInput, {nullable:true})
-    fundraisers?: FundRaiserUpdateManyWithoutCreatedByNestedInput;
+    // @Field(() => FundRaiserUpdateManyWithoutCreatedByNestedInput, {nullable:true})
+    // fundraisers?: FundRaiserUpdateManyWithoutCreatedByNestedInput;
 
     @Field(() => EnumKYCFieldUpdateOperationsInput, {nullable:true})
     kyc_status?: EnumKYCFieldUpdateOperationsInput;

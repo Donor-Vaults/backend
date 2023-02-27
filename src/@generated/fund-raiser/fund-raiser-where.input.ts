@@ -56,8 +56,8 @@ export class FundRaiserWhereInput {
     @Field(() => StringNullableListFilter, {nullable:true})
     supportingDocuments?: StringNullableListFilter;
 
-    @Field(() => UserRelationFilter, {nullable:true})
-    createdBy?: UserRelationFilter;
+    // @Field(() => UserRelationFilter, {nullable:true})
+    // createdBy?: UserRelationFilter;
 
     @Field(() => StringFilter, {nullable:true})
     userId?: StringFilter;

@@ -22,7 +22,7 @@ export class AuthService {
     private readonly prisma: PrismaService,
     private readonly passwordService: PasswordService,
     private readonly configService: ConfigService
-  ) {}
+  ) { }
 
   async createUser(
     // user:User,
@@ -37,6 +37,7 @@ export class AuthService {
         data: {
           ...payload,
           password: hashedPassword,
+          email:payload.email.toLowerCase(),
           user_role: 'USER',
         },
       });
@@ -60,16 +61,44 @@ export class AuthService {
     }
   }
 
-  async passwordresetRequest(userId: string): Promise<Token> {
+  async passwordresetRequest(userId: string, newPassword: string): Promise<Token> {
     const user = await this.prisma.user.findUnique({ where: { id: userId } });
 
     if (!user) {
       throw new NotFoundException(`No user found for userId: ${userId}`);
     }
+
+    const hashedPassword = await this.passwordService.hashPassword(
+      newPassword
+    );
+
+
+    await this.prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } })
+
     return this.generateTokens({
       userId: user.id,
     });
   }
+
+
+
+
+
+async passwordresetRequestByEmail  (email:string) {
+
+  const user = await this.prisma.user.findFirst({where:{email:email.toLowerCase()}});
+
+  if (!user) throw new Error("User does not exist");
+  // this.jwtService.
+
+  const tokens =  this.generateTokens({
+    userId: user.id,
+    
+  });
+
+  return {accessToken:tokens.accessToken,name:user.name}
+
+};
 
   async login(email: string, password: string): Promise<Token> {
     const user = await this.prisma.user.findUnique({ where: { email } });

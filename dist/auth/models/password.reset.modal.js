@@ -9,32 +9,20 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.PasswordRequestByLinkInput = exports.PasswordRequestInput = void 0;
+exports.PasswordResetByLink = void 0;
 const graphql_1 = require("@nestjs/graphql");
-let PasswordRequestInput = class PasswordRequestInput {
-    static _GRAPHQL_METADATA_FACTORY() {
-        return {};
-    }
+let PasswordResetByLink = class PasswordResetByLink {
 };
 __decorate([
-    (0, graphql_1.Field)(() => String, {}),
+    (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], PasswordRequestInput.prototype, "newPassword", void 0);
-PasswordRequestInput = __decorate([
-    (0, graphql_1.InputType)()
-], PasswordRequestInput);
-exports.PasswordRequestInput = PasswordRequestInput;
-let PasswordRequestByLinkInput = class PasswordRequestByLinkInput {
-    static _GRAPHQL_METADATA_FACTORY() {
-        return {};
-    }
-};
+], PasswordResetByLink.prototype, "link", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => String, {}),
+    (0, graphql_1.Field)(),
     __metadata("design:type", String)
-], PasswordRequestByLinkInput.prototype, "email", void 0);
-PasswordRequestByLinkInput = __decorate([
-    (0, graphql_1.InputType)()
-], PasswordRequestByLinkInput);
-exports.PasswordRequestByLinkInput = PasswordRequestByLinkInput;
-//# sourceMappingURL=passwordRequest.input.js.map
+], PasswordResetByLink.prototype, "accessToken", void 0);
+PasswordResetByLink = __decorate([
+    (0, graphql_1.ObjectType)()
+], PasswordResetByLink);
+exports.PasswordResetByLink = PasswordResetByLink;
+//# sourceMappingURL=password.reset.modal.js.map

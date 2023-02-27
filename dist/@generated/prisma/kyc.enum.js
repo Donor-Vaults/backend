@@ -10,5 +10,5 @@ var KYC;
     KYC["REJECTED"] = "REJECTED";
     KYC["APPROVED"] = "APPROVED";
 })(KYC = exports.KYC || (exports.KYC = {}));
-(0, graphql_1.registerEnumType)(KYC, { name: 'KYCEnum', description: undefined });
+(0, graphql_1.registerEnumType)(KYC, { name: 'KYCStatus', description: undefined });
 //# sourceMappingURL=kyc.enum.js.map

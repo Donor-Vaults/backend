@@ -32,25 +32,7 @@ export class CampaignsResolver {
     private prisma: PrismaService
   ) {}
 
-  // ******************************************************
-  // ******************************************************
-  // **************Create Documents************************
-  // ******************************************************
-  // ******************************************************
-
-  // @UseGuards(GqlAuthGuard) // Gql Authentication Guards
-  // @Mutation(() => FundRaiser, { nullable: true })
-  // async createCampaign(
-
-  //   @Args('')
-  //   data: CreateOneFundRaiserArgs
-  // ) {
-  //   console.log({data})
-  //   // await this.campaignService.createCampaign(data);
-  //   // return { title: 'papa', url: 'bo' };
-
-  // }
-
+  
   @UseGuards(GqlAuthGuard)
   @Mutation(() => FundRaiser, { nullable: true })
   async createOneCampaign(
@@ -77,6 +59,9 @@ export class CampaignsResolver {
     return campaigns;
   }
 
+
+  
+
   @UseGuards(GqlAuthGuard)
   @Mutation(() => FundRaiser)
   async updateCampaign(
@@ -89,6 +74,5 @@ export class CampaignsResolver {
       throw new Error("Not Allowed")
     }
     return await this.campaignService.updateCampaign(newData.where.id, newData);
-    // return { title: 'papa', url: 'bo' };
   }
 }

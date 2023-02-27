@@ -5,6 +5,16 @@ import { InputType, Field } from '@nestjs/graphql';
 export class PasswordRequestInput {
   
   @Field()
-  pw_id: string;
+  newPassword: string;
 
 }
+
+
+@InputType()
+export class PasswordRequestByLinkInput {
+  
+  @Field()
+  email: string;
+}
+
+

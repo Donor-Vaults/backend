@@ -27,7 +27,7 @@ let AuthService = class AuthService {
         const hashedPassword = await this.passwordService.hashPassword(payload.password);
         try {
             const user = await this.prisma.user.create({
-                data: Object.assign(Object.assign({}, payload), { password: hashedPassword, user_role: 'USER' }),
+                data: Object.assign(Object.assign({}, payload), { password: hashedPassword, email: payload.email.toLowerCase(), user_role: 'USER' }),
             });
             return this.generateTokens({
                 userId: user.id,
@@ -45,15 +45,27 @@ let AuthService = class AuthService {
             throw new Error(e);
         }
     }
-    async passwordresetRequest(userId) {
+    async passwordresetRequest(userId, newPassword) {
         const user = await this.prisma.user.findUnique({ where: { id: userId } });
         if (!user) {
             throw new common_1.NotFoundException(`No user found for userId: ${userId}`);
         }
+        const hashedPassword = await this.passwordService.hashPassword(newPassword);
+        await this.prisma.user.update({ where: { id: userId }, data: { password: hashedPassword } });
         return this.generateTokens({
             userId: user.id,
         });
     }
+    async passwordresetRequestByEmail(email) {
+        const user = await this.prisma.user.findFirst({ where: { email: email.toLowerCase() } });
+        if (!user)
+            throw new Error("User does not exist");
+        const tokens = this.generateTokens({
+            userId: user.id,
+        });
+        return { accessToken: tokens.accessToken, name: user.name };
+    }
+    ;
     async login(email, password) {
         const user = await this.prisma.user.findUnique({ where: { email } });
         if (!user) {

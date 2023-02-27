@@ -78,9 +78,6 @@ export class User extends BaseModel {
 
  
 
-  @Field(() => String, { nullable: true })
-  pw_id?: string | null;
-
 
   // @Field(()=> Membership)
   // membership?:Membership

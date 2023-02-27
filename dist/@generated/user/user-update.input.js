@@ -17,7 +17,6 @@ const date_time_field_update_operations_input_1 = require("../prisma/date-time-f
 const nullable_string_field_update_operations_input_1 = require("../prisma/nullable-string-field-update-operations.input");
 const nullable_date_time_field_update_operations_input_1 = require("../prisma/nullable-date-time-field-update-operations.input");
 const bool_field_update_operations_input_1 = require("../prisma/bool-field-update-operations.input");
-const fund_raiser_update_many_without_created_by_nested_input_1 = require("../fund-raiser/fund-raiser-update-many-without-created-by-nested.input");
 const enum_kyc_field_update_operations_input_1 = require("../prisma/enum-kyc-field-update-operations.input");
 const enum_role_field_update_operations_input_1 = require("../prisma/enum-role-field-update-operations.input");
 let UserUpdateInput = class UserUpdateInput {
@@ -58,17 +57,9 @@ __decorate([
     __metadata("design:type", nullable_string_field_update_operations_input_1.NullableStringFieldUpdateOperationsInput)
 ], UserUpdateInput.prototype, "country", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => string_field_update_operations_input_1.StringFieldUpdateOperationsInput, { nullable: true }),
-    __metadata("design:type", string_field_update_operations_input_1.StringFieldUpdateOperationsInput)
-], UserUpdateInput.prototype, "password", void 0);
-__decorate([
     (0, graphql_1.Field)(() => bool_field_update_operations_input_1.BoolFieldUpdateOperationsInput, { nullable: true }),
     __metadata("design:type", bool_field_update_operations_input_1.BoolFieldUpdateOperationsInput)
 ], UserUpdateInput.prototype, "isVerified", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => fund_raiser_update_many_without_created_by_nested_input_1.FundRaiserUpdateManyWithoutCreatedByNestedInput, { nullable: true }),
-    __metadata("design:type", fund_raiser_update_many_without_created_by_nested_input_1.FundRaiserUpdateManyWithoutCreatedByNestedInput)
-], UserUpdateInput.prototype, "fundraisers", void 0);
 __decorate([
     (0, graphql_1.Field)(() => enum_kyc_field_update_operations_input_1.EnumKYCFieldUpdateOperationsInput, { nullable: true }),
     __metadata("design:type", enum_kyc_field_update_operations_input_1.EnumKYCFieldUpdateOperationsInput)

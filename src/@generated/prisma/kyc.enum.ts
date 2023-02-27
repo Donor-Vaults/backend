@@ -9,4 +9,4 @@ export enum KYC {
 }
 
 
-registerEnumType(KYC, { name: 'KYCEnum', description: undefined })
+registerEnumType(KYC, { name: 'KYCStatus', description: undefined })

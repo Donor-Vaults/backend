@@ -50,8 +50,6 @@ export class UsersResolver {
 
 
 @UseGuards(GqlAuthGuard)
-
-  
 @Query(() => [UserModal])
 async users(
   @Args('where') where: UserWhereInput,
@@ -88,36 +86,6 @@ async users(
    
     return this.usersService.updateUser(newUserData.where.id, newUserData);
   }
-
-
-  
-   // *********************************Updated  Nominee details********************
-  // ****************************************************************************
-  // ****************************************************************************
-
-
-  // @UseGuards(GqlAuthGuard)
-  // @Mutation(() => Nominee)
-  // async upsertNominee(
-  //   @UserEntity() user: User,
-  //   @Args('data') newNomineeData: NomineeInput
-  // ) {
-  //   return this.usersService.upsertNominee(user.id, newNomineeData);
-  // }
-
-   // *********************************Mutation command  about the Changed Password   ********************
-  // ******************************************************************************************
-  // ***************************************************************************************
-
-
-  
-  // @Mutation(() => User)
-  // async changePassword(
-  // @Args('data') 
-  // changePasswordValue: ChangePasswordInput) {
-  //   return this.usersService.changePassword(changePasswordValue);
-  // }
-
 
 
 

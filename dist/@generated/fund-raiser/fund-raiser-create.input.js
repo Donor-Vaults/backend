@@ -13,7 +13,6 @@ exports.FundRaiserCreateInput = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const graphql_2 = require("@nestjs/graphql");
 const graphql_3 = require("@nestjs/graphql");
-const fund_raiser_createsupporting_documents_input_1 = require("./fund-raiser-createsupporting-documents.input");
 const status_enum_1 = require("../prisma/status.enum");
 let FundRaiserCreateInput = class FundRaiserCreateInput {
     static _GRAPHQL_METADATA_FACTORY() {
@@ -64,10 +63,6 @@ __decorate([
     (0, graphql_1.Field)(() => graphql_3.Int, { nullable: false }),
     __metadata("design:type", Number)
 ], FundRaiserCreateInput.prototype, "goalAmount", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => fund_raiser_createsupporting_documents_input_1.FundRaiserCreatesupportingDocumentsInput, { nullable: true }),
-    __metadata("design:type", fund_raiser_createsupporting_documents_input_1.FundRaiserCreatesupportingDocumentsInput)
-], FundRaiserCreateInput.prototype, "supportingDocuments", void 0);
 __decorate([
     (0, graphql_1.Field)(() => status_enum_1.STATUS, { nullable: true }),
     __metadata("design:type", Object)

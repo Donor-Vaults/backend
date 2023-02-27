@@ -4,7 +4,7 @@ import { DateTimeFieldUpdateOperationsInput } from '../prisma/date-time-field-up
 import { StringFieldUpdateOperationsInput } from '../prisma/string-field-update-operations.input';
 import { IntFieldUpdateOperationsInput } from '../prisma/int-field-update-operations.input';
 import { FundRaiserUpdatesupportingDocumentsInput } from './fund-raiser-updatesupporting-documents.input';
-import { UserUpdateOneRequiredWithoutFundraisersNestedInput } from '../user/user-update-one-required-without-fundraisers-nested.input';
+import { User } from '../user/user.model';
 import { EnumSTATUSFieldUpdateOperationsInput } from '../prisma/enum-status-field-update-operations.input';
 import { NullableStringFieldUpdateOperationsInput } from '../prisma/nullable-string-field-update-operations.input';
 
@@ -47,8 +47,8 @@ export class FundRaiserUpdateInput {
     @Field(() => FundRaiserUpdatesupportingDocumentsInput, {nullable:true})
     supportingDocuments?: FundRaiserUpdatesupportingDocumentsInput;
 
-    // @Field(() => UserUpdateOneRequiredWithoutFundraisersNestedInput, {nullable:true})
-    // createdBy?: UserUpdateOneRequiredWithoutFundraisersNestedInput;
+    // @Field(() => User, {nullable:true})
+    // createdBy?: User;
 
     @Field(() => EnumSTATUSFieldUpdateOperationsInput, {nullable:true})
     fundraisers_status?: EnumSTATUSFieldUpdateOperationsInput;

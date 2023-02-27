@@ -52,25 +52,25 @@ input DateTimeNullableFilter {
 }
 
 input EnumKYCFieldUpdateOperationsInput {
-  set: KYCEnum
+  set: KYCStatus
 }
 
 input EnumKYCFilter {
-  equals: KYCEnum
-  in: [KYCEnum!]
+  equals: KYCStatus
+  in: [KYCStatus!]
   not: NestedEnumKYCFilter
-  notIn: [KYCEnum!]
+  notIn: [KYCStatus!]
 }
 
 input EnumRoleFieldUpdateOperationsInput {
-  set: UserRole
+  set: RoleStatus
 }
 
 input EnumRoleFilter {
-  equals: UserRole
-  in: [UserRole!]
+  equals: RoleStatus
+  in: [RoleStatus!]
   not: NestedEnumRoleFilter
-  notIn: [UserRole!]
+  notIn: [RoleStatus!]
 }
 
 input EnumSTATUSFieldUpdateOperationsInput {
@@ -89,7 +89,6 @@ type FundRaiser {
   category: String!
   contract_address: String
   createdAt: DateTime!
-  createdBy: UserData!
   featuredImage: String!
   firstName: String!
   fundraiserDescription: String!
@@ -116,56 +115,7 @@ input FundRaiserCreateInput {
   goalAmount: Int!
   id: String
   lastName: String!
-  supportingDocuments: FundRaiserCreatesupportingDocumentsInput
   updatedAt: DateTime
-}
-
-input FundRaiserCreateManyCreatedByInput {
-  benificiary: String!
-  category: String!
-  contract_address: String
-  createdAt: DateTime
-  featuredImage: String!
-  firstName: String!
-  fundraiserDescription: String!
-  fundraiserName: String!
-  fundraisers_status: STATUS
-  goalAmount: Int!
-  id: String
-  lastName: String!
-  supportingDocuments: FundRaiserCreatesupportingDocumentsInput
-  updatedAt: DateTime
-}
-
-input FundRaiserCreateManyCreatedByInputEnvelope {
-  data: [FundRaiserCreateManyCreatedByInput!]!
-  skipDuplicates: Boolean
-}
-
-input FundRaiserCreateOrConnectWithoutCreatedByInput {
-  create: FundRaiserCreateWithoutCreatedByInput!
-  where: FundRaiserWhereUniqueInput!
-}
-
-input FundRaiserCreateWithoutCreatedByInput {
-  benificiary: String!
-  category: String!
-  contract_address: String
-  createdAt: DateTime
-  featuredImage: String!
-  firstName: String!
-  fundraiserDescription: String!
-  fundraiserName: String!
-  fundraisers_status: STATUS
-  goalAmount: Int!
-  id: String
-  lastName: String!
-  supportingDocuments: FundRaiserCreatesupportingDocumentsInput
-  updatedAt: DateTime
-}
-
-input FundRaiserCreatesupportingDocumentsInput {
-  set: [String!]!
 }
 
 input FundRaiserListRelationFilter {
@@ -174,86 +124,7 @@ input FundRaiserListRelationFilter {
   some: FundRaiserWhereInput
 }
 
-input FundRaiserScalarWhereInput {
-  AND: [FundRaiserScalarWhereInput!]
-  NOT: [FundRaiserScalarWhereInput!]
-  OR: [FundRaiserScalarWhereInput!]
-  benificiary: StringFilter
-  category: StringFilter
-  contract_address: StringNullableFilter
-  createdAt: DateTimeFilter
-  featuredImage: StringFilter
-  firstName: StringFilter
-  fundraiserDescription: StringFilter
-  fundraiserName: StringFilter
-  fundraisers_status: EnumSTATUSFilter
-  goalAmount: IntFilter
-  id: StringFilter
-  lastName: StringFilter
-  supportingDocuments: StringNullableListFilter
-  updatedAt: DateTimeFilter
-  userId: StringFilter
-}
-
 input FundRaiserUpdateInput {
-  benificiary: StringFieldUpdateOperationsInput
-  category: StringFieldUpdateOperationsInput
-  contract_address: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  featuredImage: StringFieldUpdateOperationsInput
-  firstName: StringFieldUpdateOperationsInput
-  fundraiserDescription: StringFieldUpdateOperationsInput
-  fundraiserName: StringFieldUpdateOperationsInput
-  fundraisers_status: EnumSTATUSFieldUpdateOperationsInput
-  goalAmount: IntFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  lastName: StringFieldUpdateOperationsInput
-  supportingDocuments: FundRaiserUpdatesupportingDocumentsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input FundRaiserUpdateManyMutationInput {
-  benificiary: StringFieldUpdateOperationsInput
-  category: StringFieldUpdateOperationsInput
-  contract_address: NullableStringFieldUpdateOperationsInput
-  createdAt: DateTimeFieldUpdateOperationsInput
-  featuredImage: StringFieldUpdateOperationsInput
-  firstName: StringFieldUpdateOperationsInput
-  fundraiserDescription: StringFieldUpdateOperationsInput
-  fundraiserName: StringFieldUpdateOperationsInput
-  fundraisers_status: EnumSTATUSFieldUpdateOperationsInput
-  goalAmount: IntFieldUpdateOperationsInput
-  id: StringFieldUpdateOperationsInput
-  lastName: StringFieldUpdateOperationsInput
-  supportingDocuments: FundRaiserUpdatesupportingDocumentsInput
-  updatedAt: DateTimeFieldUpdateOperationsInput
-}
-
-input FundRaiserUpdateManyWithWhereWithoutCreatedByInput {
-  data: FundRaiserUpdateManyMutationInput!
-  where: FundRaiserScalarWhereInput!
-}
-
-input FundRaiserUpdateManyWithoutCreatedByNestedInput {
-  connect: [FundRaiserWhereUniqueInput!]
-  connectOrCreate: [FundRaiserCreateOrConnectWithoutCreatedByInput!]
-  create: [FundRaiserCreateWithoutCreatedByInput!]
-  createMany: FundRaiserCreateManyCreatedByInputEnvelope
-  delete: [FundRaiserWhereUniqueInput!]
-  deleteMany: [FundRaiserScalarWhereInput!]
-  disconnect: [FundRaiserWhereUniqueInput!]
-  set: [FundRaiserWhereUniqueInput!]
-  update: [FundRaiserUpdateWithWhereUniqueWithoutCreatedByInput!]
-  updateMany: [FundRaiserUpdateManyWithWhereWithoutCreatedByInput!]
-  upsert: [FundRaiserUpsertWithWhereUniqueWithoutCreatedByInput!]
-}
-
-input FundRaiserUpdateWithWhereUniqueWithoutCreatedByInput {
-  data: FundRaiserUpdateWithoutCreatedByInput!
-  where: FundRaiserWhereUniqueInput!
-}
-
-input FundRaiserUpdateWithoutCreatedByInput {
   benificiary: StringFieldUpdateOperationsInput
   category: StringFieldUpdateOperationsInput
   contract_address: NullableStringFieldUpdateOperationsInput
@@ -275,12 +146,6 @@ input FundRaiserUpdatesupportingDocumentsInput {
   set: [String!]
 }
 
-input FundRaiserUpsertWithWhereUniqueWithoutCreatedByInput {
-  create: FundRaiserCreateWithoutCreatedByInput!
-  update: FundRaiserUpdateWithoutCreatedByInput!
-  where: FundRaiserWhereUniqueInput!
-}
-
 input FundRaiserWhereInput {
   AND: [FundRaiserWhereInput!]
   NOT: [FundRaiserWhereInput!]
@@ -289,7 +154,6 @@ input FundRaiserWhereInput {
   category: StringFilter
   contract_address: StringNullableFilter
   createdAt: DateTimeFilter
-  createdBy: UserRelationFilter
   featuredImage: StringFilter
   firstName: StringFilter
   fundraiserDescription: StringFilter
@@ -340,7 +204,7 @@ enum KYC {
   SUBMITTED
 }
 
-enum KYCEnum {
+enum KYCStatus {
   APPROVED
   NOT_INITIALIZED
   ONGOING
@@ -357,10 +221,11 @@ type Mutation {
   createOneCampaign(data: FundRaiserCreateInput!): FundRaiser
   login(data: LoginInput!): Auth!
   passwordresetRequest(data: PasswordRequestInput!): Auth!
+  passwordresetRequestByLink(data: PasswordRequestByLinkInput!): PasswordResetByLink!
   refreshToken(token: JWT!): Token!
   signup(data: SignupInput!): Auth!
   updateCampaign(data: FundRaiserUpdateInput!, where: FundRaiserWhereUniqueInput!): FundRaiser!
-  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): UserData!
+  updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): USER!
 }
 
 input NestedBoolFilter {
@@ -391,17 +256,17 @@ input NestedDateTimeNullableFilter {
 }
 
 input NestedEnumKYCFilter {
-  equals: KYCEnum
-  in: [KYCEnum!]
+  equals: KYCStatus
+  in: [KYCStatus!]
   not: NestedEnumKYCFilter
-  notIn: [KYCEnum!]
+  notIn: [KYCStatus!]
 }
 
 input NestedEnumRoleFilter {
-  equals: UserRole
-  in: [UserRole!]
+  equals: RoleStatus
+  in: [RoleStatus!]
   not: NestedEnumRoleFilter
-  notIn: [UserRole!]
+  notIn: [RoleStatus!]
 }
 
 input NestedEnumSTATUSFilter {
@@ -466,16 +331,25 @@ input NullableStringFieldUpdateOperationsInput {
   set: String
 }
 
+input PasswordRequestByLinkInput {
+  email: String!
+}
+
 input PasswordRequestInput {
-  pw_id: String!
+  newPassword: String!
+}
+
+type PasswordResetByLink {
+  accessToken: String!
+  link: String!
 }
 
 type Query {
   fundraisers(where: FundRaiserWhereInput!): [FundRaiser!]!
   hello(name: String!): String!
   helloWorld: String!
-  me: UserData!
-  users(where: UserWhereInput!): [UserData!]!
+  me: USER!
+  users(where: UserWhereInput!): [USER!]!
 }
 
 enum QueryMode {
@@ -485,6 +359,11 @@ enum QueryMode {
 
 """User role"""
 enum Role {
+  ADMIN
+  USER
+}
+
+enum RoleStatus {
   ADMIN
   USER
 }
@@ -556,6 +435,22 @@ type Token {
   refreshToken: JWT!
 }
 
+type USER {
+  country: String
+  createdAt: DateTime!
+  date_of_birth: DateTime
+  email: String
+  id: ID!
+  isVerified: Boolean!
+  kyc_status: KYCStatus!
+  mobile_number: String
+  name: String
+  password: String!
+  selfie: String
+  updatedAt: DateTime!
+  user_role: RoleStatus!
+}
+
 type User {
   alternate_mobile_number: String
   createdAt: DateTime!
@@ -568,41 +463,8 @@ type User {
   mobile_number: String
   name: String
   nominee: NomineeModel
-  pw_id: String
   role: Role!
   updatedAt: DateTime!
-}
-
-type UserCount {
-  fundraisers: Int!
-}
-
-type UserData {
-  _count: UserCount!
-  country: String
-  createdAt: DateTime!
-  date_of_birth: DateTime
-  email: String
-  fundraisers: [FundRaiser!]
-  id: ID!
-  isVerified: Boolean!
-  kyc_status: KYCEnum!
-  mobile_number: String
-  name: String
-  password: String!
-  selfie: String
-  updatedAt: DateTime!
-  user_role: UserRole!
-}
-
-input UserRelationFilter {
-  is: UserWhereInput
-  isNot: UserWhereInput
-}
-
-enum UserRole {
-  ADMIN
-  USER
 }
 
 input UserUpdateInput {
@@ -610,13 +472,11 @@ input UserUpdateInput {
   createdAt: DateTimeFieldUpdateOperationsInput
   date_of_birth: NullableDateTimeFieldUpdateOperationsInput
   email: NullableStringFieldUpdateOperationsInput
-  fundraisers: FundRaiserUpdateManyWithoutCreatedByNestedInput
   id: StringFieldUpdateOperationsInput
   isVerified: BoolFieldUpdateOperationsInput
   kyc_status: EnumKYCFieldUpdateOperationsInput
   mobile_number: NullableStringFieldUpdateOperationsInput
   name: NullableStringFieldUpdateOperationsInput
-  password: StringFieldUpdateOperationsInput
   selfie: NullableStringFieldUpdateOperationsInput
   updatedAt: DateTimeFieldUpdateOperationsInput
   user_role: EnumRoleFieldUpdateOperationsInput

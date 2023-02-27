@@ -34,7 +34,6 @@ import { CampaignsModule } from './campaign/campaign.module';
     AuthModule,
     UsersModule,
     
-    // DocumentsModule,
     CampaignsModule,
     
     MediasModule,

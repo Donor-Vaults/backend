@@ -13,10 +13,8 @@ exports.User = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const graphql_2 = require("@nestjs/graphql");
 const graphql_3 = require("@nestjs/graphql");
-const fund_raiser_model_1 = require("../fund-raiser/fund-raiser.model");
 const kyc_enum_1 = require("../prisma/kyc.enum");
 const role_enum_1 = require("../prisma/role.enum");
-const user_count_output_1 = require("./user-count.output");
 let User = class User {
     static _GRAPHQL_METADATA_FACTORY() {
         return {};
@@ -63,10 +61,6 @@ __decorate([
     __metadata("design:type", Boolean)
 ], User.prototype, "isVerified", void 0);
 __decorate([
-    (0, graphql_1.Field)(() => [fund_raiser_model_1.FundRaiser], { nullable: true }),
-    __metadata("design:type", Array)
-], User.prototype, "fundraisers", void 0);
-__decorate([
     (0, graphql_1.Field)(() => kyc_enum_1.KYC, { nullable: false, defaultValue: 'NOT_INITIALIZED' }),
     __metadata("design:type", Object)
 ], User.prototype, "kyc_status", void 0);
@@ -78,12 +72,8 @@ __decorate([
     (0, graphql_1.Field)(() => String, { nullable: true }),
     __metadata("design:type", String)
 ], User.prototype, "selfie", void 0);
-__decorate([
-    (0, graphql_1.Field)(() => user_count_output_1.UserCount, { nullable: false }),
-    __metadata("design:type", user_count_output_1.UserCount)
-], User.prototype, "_count", void 0);
 User = __decorate([
-    (0, graphql_2.ObjectType)("UserData")
+    (0, graphql_2.ObjectType)("USER")
 ], User);
 exports.User = User;
 //# sourceMappingURL=user.model.js.map

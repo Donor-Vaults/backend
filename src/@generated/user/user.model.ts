@@ -6,7 +6,7 @@ import { KYC } from '../prisma/kyc.enum';
 import { Role } from '../prisma/role.enum';
 import { UserCount } from './user-count.output';
 
-@ObjectType("UserData")
+@ObjectType("USER")
 export class User {
 
     @Field(() => ID, {nullable:false})
@@ -39,8 +39,8 @@ export class User {
     @Field(() => Boolean, {nullable:false,defaultValue:false})
     isVerified!: boolean;
 
-    @Field(() => [FundRaiser], {nullable:true})
-    fundraisers?: Array<FundRaiser>;
+    // @Field(() => [FundRaiser], {nullable:true})
+    // fundraisers?: Array<FundRaiser>;
 
     @Field(() => KYC, {nullable:false,defaultValue:'NOT_INITIALIZED'})
     kyc_status!: keyof typeof KYC;
@@ -51,6 +51,6 @@ export class User {
     @Field(() => String, {nullable:true})
     selfie!: string | null;
 
-    @Field(() => UserCount, {nullable:false})
-    _count?: UserCount;
+    // @Field(() => UserCount, {nullable:false})
+    // _count?: UserCount;
 }

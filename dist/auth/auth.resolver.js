@@ -22,15 +22,42 @@ const signup_input_1 = require("./dto/signup.input");
 const refresh_token_input_1 = require("./dto/refresh-token.input");
 const user_model_1 = require("../users/models/user.model");
 const passwordRequest_input_1 = require("./dto/passwordRequest.input");
+const nodemailer_1 = require("nodemailer");
+const common_1 = require("@nestjs/common");
+const gql_auth_guard_1 = require("./gql-auth.guard");
+const user_decorator_1 = require("../common/decorators/user.decorator");
+const user_model_2 = require("../@generated/user/user.model");
+const password_reset_modal_1 = require("./models/password.reset.modal");
 let AuthResolver = class AuthResolver {
     constructor(auth) {
         this.auth = auth;
     }
+    async sendEmail(to, subject, text) {
+        let transporter = (0, nodemailer_1.createTransport)({
+            host: 'mail.donor.finance',
+            port: 465,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+        const message = {
+            from: process.env.EMAIL,
+            to,
+            subject,
+            html: text
+        };
+        const resp = await transporter.sendMail(message);
+        console.log({ resp });
+    }
     async signup(data) {
         const { accessToken, refreshToken } = await this.auth.createUser(data);
+        this.sendEmail(data.email, "Donor Account Successfully Created", `<html>
+      Hello <strong> ${data.name}</strong>,<br/>
+      Congratulation for creating your Donor Finance account!</html>`);
         return {
             accessToken,
-            refreshToken,
+            refreshToken
         };
     }
     async login({ email, password, }) {
@@ -40,10 +67,20 @@ let AuthResolver = class AuthResolver {
             refreshToken,
         };
     }
-    async passwordresetRequest({ pw_id }) {
-        const { accessToken } = await this.auth.passwordresetRequest(pw_id);
+    async passwordresetRequest({ newPassword }, user) {
+        const { accessToken } = await this.auth.passwordresetRequest(user.id, newPassword);
         return {
             accessToken,
+        };
+    }
+    async passwordresetRequestByLink({ email }) {
+        const { accessToken, name } = await this.auth.passwordresetRequestByEmail(email);
+        const link = `https://donor.finance/resetpassword?request=${accessToken}`;
+        const emailText = `<html>Hello ${name}, Your Password Reset URL is:<br/> <a href="${link}" target="_blank">${link}</a>. </html>`;
+        this.sendEmail(email, "Donor Platfrom Password Reset Link", emailText);
+        return {
+            link,
+            accessToken
         };
     }
     async refreshToken({ token }) {
@@ -68,12 +105,22 @@ __decorate([
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "login", null);
 __decorate([
+    (0, common_1.UseGuards)(gql_auth_guard_1.GqlAuthGuard),
     (0, graphql_1.Mutation)(() => auth_model_1.Auth),
     __param(0, (0, graphql_1.Args)('data')),
+    __param(1, (0, user_decorator_1.UserEntity)()),
     __metadata("design:type", Function),
-    __metadata("design:paramtypes", [passwordRequest_input_1.PasswordRequestInput]),
+    __metadata("design:paramtypes", [passwordRequest_input_1.PasswordRequestInput,
+        user_model_2.User]),
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "passwordresetRequest", null);
+__decorate([
+    (0, graphql_1.Mutation)(() => password_reset_modal_1.PasswordResetByLink),
+    __param(0, (0, graphql_1.Args)('data')),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [passwordRequest_input_1.PasswordRequestByLinkInput]),
+    __metadata("design:returntype", Promise)
+], AuthResolver.prototype, "passwordresetRequestByLink", null);
 __decorate([
     (0, graphql_1.Mutation)(() => token_model_1.Token),
     __param(0, (0, graphql_1.Args)()),

@@ -44,8 +44,8 @@ export class FundRaiser {
     @Field(() => [String], {nullable:true})
     supportingDocuments!: Array<string>;
 
-    @Field(() => User, {nullable:false})
-    createdBy?: User;
+    // @Field(() => User, {nullable:false})
+    // createdBy?: User;
 
     @Field(() => String, {nullable:false})
     userId!: string;
