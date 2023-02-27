@@ -13,6 +13,7 @@ exports.User = void 0;
 const graphql_1 = require("@nestjs/graphql");
 const graphql_2 = require("@nestjs/graphql");
 const graphql_3 = require("@nestjs/graphql");
+const fund_raiser_model_1 = require("../fund-raiser/fund-raiser.model");
 const kyc_enum_1 = require("../prisma/kyc.enum");
 const role_enum_1 = require("../prisma/role.enum");
 let User = class User {
@@ -60,6 +61,10 @@ __decorate([
     (0, graphql_1.Field)(() => Boolean, { nullable: false, defaultValue: false }),
     __metadata("design:type", Boolean)
 ], User.prototype, "isVerified", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => [fund_raiser_model_1.FundRaiser], { nullable: true }),
+    __metadata("design:type", Array)
+], User.prototype, "fundraisers", void 0);
 __decorate([
     (0, graphql_1.Field)(() => kyc_enum_1.KYC, { nullable: false, defaultValue: 'NOT_INITIALIZED' }),
     __metadata("design:type", Object)

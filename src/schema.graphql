@@ -346,8 +346,6 @@ type PasswordResetByLink {
 
 type Query {
   fundraisers(where: FundRaiserWhereInput!): [FundRaiser!]!
-  hello(name: String!): String!
-  helloWorld: String!
   me: USER!
   users(where: UserWhereInput!): [USER!]!
 }
@@ -440,6 +438,7 @@ type USER {
   createdAt: DateTime!
   date_of_birth: DateTime
   email: String
+  fundraisers: [FundRaiser!]
   id: ID!
   isVerified: Boolean!
   kyc_status: KYCStatus!

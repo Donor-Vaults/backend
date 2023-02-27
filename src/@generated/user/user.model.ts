@@ -39,8 +39,8 @@ export class User {
     @Field(() => Boolean, {nullable:false,defaultValue:false})
     isVerified!: boolean;
 
-    // @Field(() => [FundRaiser], {nullable:true})
-    // fundraisers?: Array<FundRaiser>;
+    @Field(() => [FundRaiser], {nullable:true})
+    fundraisers?: Array<FundRaiser>;
 
     @Field(() => KYC, {nullable:false,defaultValue:'NOT_INITIALIZED'})
     kyc_status!: keyof typeof KYC;
