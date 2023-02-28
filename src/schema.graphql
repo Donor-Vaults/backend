@@ -89,6 +89,7 @@ type FundRaiser {
   category: String!
   contract_address: String
   createdAt: DateTime!
+  createdBy: USER!
   featuredImage: String!
   firstName: String!
   fundraiserDescription: String!

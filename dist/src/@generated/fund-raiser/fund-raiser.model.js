@@ -14,6 +14,7 @@ const graphql_1 = require("@nestjs/graphql");
 const graphql_2 = require("@nestjs/graphql");
 const graphql_3 = require("@nestjs/graphql");
 const graphql_4 = require("@nestjs/graphql");
+const user_model_1 = require("../user/user.model");
 const status_enum_1 = require("../prisma/status.enum");
 let FundRaiser = class FundRaiser {
     static _GRAPHQL_METADATA_FACTORY() {
@@ -68,6 +69,10 @@ __decorate([
     (0, graphql_1.Field)(() => [String], { nullable: true }),
     __metadata("design:type", Array)
 ], FundRaiser.prototype, "supportingDocuments", void 0);
+__decorate([
+    (0, graphql_1.Field)(() => user_model_1.User, { nullable: false }),
+    __metadata("design:type", user_model_1.User)
+], FundRaiser.prototype, "createdBy", void 0);
 __decorate([
     (0, graphql_1.Field)(() => String, { nullable: false }),
     __metadata("design:type", String)
