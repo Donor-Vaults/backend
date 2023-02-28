@@ -21,6 +21,7 @@ const uuid_1 = require("uuid");
 const platform_express_1 = require("@nestjs/platform-express");
 const path_1 = require("path");
 const config_1 = require("@nestjs/config");
+const mime = require('mime');
 const editFileName = (req, file, callback) => {
     const fileExtName = (0, path_1.extname)(file.originalname);
     const randomName = Date.now().toString(36) + Math.random().toString(36).substring(2);
@@ -43,10 +44,11 @@ let MediasController = class MediasController {
         const uploadResult = await s3.upload({
             Bucket: this.configService.get('AWS_BUCKET_NAME'),
             Body: dataBuffer,
+            ContentType: mime.getType(fileName),
             Key: `${(0, uuid_1.v4)()}-${fileName}`,
         }).promise();
         const fileStorageInDB = ({
-            fileName: fileName,
+            fileName,
             fileUrl: uploadResult.Location,
             key: uploadResult.Key,
         });

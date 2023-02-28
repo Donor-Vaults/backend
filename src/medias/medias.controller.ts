@@ -24,6 +24,9 @@ import { extname } from 'path';
 import { diskStorage } from 'multer';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
 import { ConfigService } from '@nestjs/config';
+// import mime from 'mime';
+const mime = require('mime');
+
 
 export const editFileName = (req, file, callback) => {
   const fileExtName = extname(file.originalname);
@@ -96,14 +99,17 @@ export class MediasController {
 
   async uploadFileToS3(dataBuffer: Buffer, fileName: string) {
     const s3 = new S3();
+
+    
     const uploadResult = await s3.upload({
         Bucket: this.configService.get('AWS_BUCKET_NAME'),
-        Body: dataBuffer,
+      Body: dataBuffer,
+        ContentType:mime.getType(fileName),
         Key: `${uuid()}-${fileName}`,
     }).promise();
 
     const fileStorageInDB = ({
-        fileName: fileName,
+       fileName,
         fileUrl: uploadResult.Location,
         key: uploadResult.Key,
     });

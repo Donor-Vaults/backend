@@ -73,6 +73,7 @@
     "graphql": "^15.7.2",
     "graphql-scalars": "1.17.0",
     "graphql-subscriptions": "2.0.0",
+    "mime": "^3.0.0",
     "nestjs-prisma": "0.17.0",
     "nestjs-prisma-graphql-crud-gen": "^1.0.3",
     "nodemailer": "^6.9.1",
