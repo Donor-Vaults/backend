@@ -16,11 +16,14 @@ import { join } from 'path';
 import Express from 'express';
 
 import 'multer';
- 
+import { S3 } from "aws-sdk";
+import { v4 as uuid } from 'uuid';
+
 import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { extname } from 'path';
 import { diskStorage } from 'multer';
 import { ApiBody, ApiTags } from '@nestjs/swagger';
+import { ConfigService } from '@nestjs/config';
 
 export const editFileName = (req, file, callback) => {
   const fileExtName = extname(file.originalname);
@@ -43,49 +46,80 @@ export const imageFileFilter = (req, file, callback) => {
 
 @Controller('documents')
 export class MediasController {
-  @Post('upload')
-  @UseInterceptors(
-    FileInterceptor('document', {
-      storage: diskStorage({
-        destination: './uploads',
-        filename: editFileName,
-      }),
-      fileFilter: imageFileFilter,
-    })
-    )
+  // @Post('upload')
+  // @UseInterceptors(
+  //   FileInterceptor('document', {
+  //     storage: diskStorage({
+  //       destination: './uploads',
+  //       filename: editFileName,
+  //     }),
+  //     fileFilter: imageFileFilter,
+  //   })
+  //   )
     
 
 
 
-  @ApiBody({
-    schema:{
-      type:'object',
-      properties:{
-        photo:{
-          type:'string',
-          format:'binary',
-        }
-      }
-    }
-  })
-  uploadSingle(@UploadedFile() file, @Headers() header) {
-    console.log("dssdsdsdsdsds")
-    const  origin =header.host
+  // @ApiBody({
+  //   schema:{
+  //     type:'object',
+  //     properties:{
+  //       photo:{
+  //         type:'string',
+  //         format:'binary',
+  //       }
+  //     }
+  //   }
+  // })
+  // uploadSingle(@UploadedFile() file, @Headers() header) {
+  //   console.log("dssdsdsdsdsds")
+  //   const  origin =header.host
 
-    const url = `http://${origin}/documents/${file.filename}`;
+  //   const url = `http://${origin}/documents/${file.filename}`;
    
-    const response = {
-      originalname: file.originalname,
-      filename: file.filename,
-      url
-    };
-    return response;
+  //   const response = {
+  //     originalname: file.originalname,
+  //     filename: file.filename,
+  //     url
+  //   };
+  //   return response;
+  // }
+
+  // @Get(":name")
+
+  // getFile(@Param() params): StreamableFile {
+  //   const file = createReadStream(join(process.cwd(), `uploads/${params.name}`));
+  //   return new StreamableFile(file);
+  // }
+  constructor(
+    private readonly configService: ConfigService,){}
+
+  async uploadFileToS3(dataBuffer: Buffer, fileName: string) {
+    const s3 = new S3();
+    const uploadResult = await s3.upload({
+        Bucket: this.configService.get('AWS_BUCKET_NAME'),
+        Body: dataBuffer,
+        Key: `${uuid()}-${fileName}`,
+    }).promise();
+
+    const fileStorageInDB = ({
+        fileName: fileName,
+        fileUrl: uploadResult.Location,
+        key: uploadResult.Key,
+    });
+
+   
+    console.log("Saasas",fileStorageInDB)
+
+    return fileStorageInDB.fileUrl
+}
+
+
+  @Post('upload')
+  @UseInterceptors(FileInterceptor('file'))
+  async uploadFile(@UploadedFile() file) {
+      const uploadedFile = await this.uploadFileToS3(file.buffer, file.originalname);
+    return {url:uploadedFile}
   }
 
-  @Get(":name")
-
-  getFile(@Param() params): StreamableFile {
-    const file = createReadStream(join(process.cwd(), `uploads/${params.name}`));
-    return new StreamableFile(file);
-  }
 }
