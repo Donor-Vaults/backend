@@ -26,7 +26,7 @@ async function bootstrap() {
 
   const configService = app.get(ConfigService);
   const nestConfig = configService.get<NestConfig>('nest');
-  const corsConfig = configService.get<CorsConfig>('cors');
+  // const corsConfig = configService.get<CorsConfig>('cors');
   const swaggerConfig = configService.get<SwaggerConfig>('swagger');
 
   // Swagger Api
