@@ -41,8 +41,8 @@ export class FundRaiserCreateInput {
     @Field(() => Int, {nullable:false})
     goalAmount!: number;
 
-    // @Field(() => FundRaiserCreatesupportingDocumentsInput, {nullable:true})
-    // supportingDocuments?: FundRaiserCreatesupportingDocumentsInput;
+    @Field(() => FundRaiserCreatesupportingDocumentsInput, {nullable:true})
+    supportingDocuments?: FundRaiserCreatesupportingDocumentsInput;
 
     // @Field(() => UserCreateNestedOneWithoutFundraisersInput, {nullable:false})
     // createdBy!: UserCreateNestedOneWithoutFundraisersInput;

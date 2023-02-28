@@ -115,7 +115,12 @@ input FundRaiserCreateInput {
   goalAmount: Int!
   id: String
   lastName: String!
+  supportingDocuments: FundRaiserCreatesupportingDocumentsInput
   updatedAt: DateTime
+}
+
+input FundRaiserCreatesupportingDocumentsInput {
+  set: [String!]!
 }
 
 input FundRaiserListRelationFilter {

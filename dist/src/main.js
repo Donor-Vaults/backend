@@ -15,7 +15,6 @@ async function bootstrap() {
     app.useGlobalFilters(new nestjs_prisma_1.PrismaClientExceptionFilter(httpAdapter));
     const configService = app.get(config_1.ConfigService);
     const nestConfig = configService.get('nest');
-    const corsConfig = configService.get('cors');
     const swaggerConfig = configService.get('swagger');
     if (swaggerConfig.enabled) {
         const options = new swagger_1.DocumentBuilder()
