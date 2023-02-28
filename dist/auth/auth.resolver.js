@@ -34,7 +34,7 @@ let AuthResolver = class AuthResolver {
     }
     async sendEmail(to, subject, text) {
         let transporter = (0, nodemailer_1.createTransport)({
-            host: 'mail.donor.finance',
+            host: 'smtp.titan.email',
             port: 465,
             auth: {
                 user: process.env.EMAIL,
@@ -47,8 +47,7 @@ let AuthResolver = class AuthResolver {
             subject,
             html: text
         };
-        const resp = await transporter.sendMail(message);
-        console.log({ resp });
+        await transporter.sendMail(message);
     }
     async signup(data) {
         const { accessToken, refreshToken } = await this.auth.createUser(data);
@@ -75,12 +74,13 @@ let AuthResolver = class AuthResolver {
     }
     async passwordresetRequestByLink({ email }) {
         const { accessToken, name } = await this.auth.passwordresetRequestByEmail(email);
+        console.log("dssdsdsdsdsdsdsd", email);
         const link = `https://donor.finance/resetpassword?request=${accessToken}`;
-        const emailText = `<html>Hello ${name}, Your Password Reset URL is:<br/> <a href="${link}" target="_blank">${link}</a>. </html>`;
+        const emailText = `<html>Hello ${name}, Your Password Reset URL is:<br/> <a href="${link}" target="_blank">${link}</a> </html>`;
         this.sendEmail(email, "Donor Platfrom Password Reset Link", emailText);
         return {
-            link,
-            accessToken
+            link: "",
+            accessToken: ""
         };
     }
     async refreshToken({ token }) {

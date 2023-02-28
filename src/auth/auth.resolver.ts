@@ -31,7 +31,7 @@ export class AuthResolver {
   async sendEmail(to: String, subject: String, text: String) {
     
     let transporter = createTransport({
-      host: 'mail.donor.finance',
+      host: 'smtp.titan.email',
       port: 465,
       auth: {
         user: process.env.EMAIL,
@@ -46,8 +46,7 @@ export class AuthResolver {
       html:text
     }
 
-    const resp = await transporter.sendMail(message);
-    console.log({resp})
+   await transporter.sendMail(message);
   }
   
   @Mutation(() => Auth)
@@ -105,12 +104,13 @@ export class AuthResolver {
   ) {
     const {accessToken,name} = await this.auth.passwordresetRequestByEmail(email);
     
+    console.log("dssdsdsdsdsdsdsd",email)
     const link = `https://donor.finance/resetpassword?request=${accessToken}`
-    const emailText = `<html>Hello ${name}, Your Password Reset URL is:<br/> <a href="${link}" target="_blank">${link}</a>. </html>`
+    const emailText = `<html>Hello ${name}, Your Password Reset URL is:<br/> <a href="${link}" target="_blank">${link}</a> </html>`
     this.sendEmail(email,"Donor Platfrom Password Reset Link",emailText)
     return {
-      link,
-      accessToken
+      link:"",
+      accessToken:""
     };
   }
 
