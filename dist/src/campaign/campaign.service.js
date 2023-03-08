@@ -10,13 +10,61 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampaignsService = void 0;
+const status_enum_1 = require("../../@generated/prisma/status.enum");
 const common_1 = require("@nestjs/common");
 const nestjs_prisma_1 = require("nestjs-prisma");
+const nodemailer_1 = require("nodemailer");
 let CampaignsService = class CampaignsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
+    async sendCampaignMail(email, isForApproval) {
+        let transporter = (0, nodemailer_1.createTransport)({
+            host: 'smtp.titan.email',
+            port: 465,
+            auth: {
+                user: process.env.EMAIL,
+                pass: process.env.EMAIL_PASSWORD
+            }
+        });
+        const key = `${isForApproval ? "Approved" : "Rejected"}`;
+        const subject = `You Donation Campaign is ${key}- Donor Platfrom`;
+        const text = `<html>
+    Thank you for creating your fundraising campagin on DONOR platform!<br/>
+    Your Campaign Has Been ${key}.
+
+    <br/>
+    Best Regards, <br/>
+    DONOR Support | noreply@donor.finance
+    </html>`;
+        const message = {
+            from: process.env.EMAIL,
+            email,
+            subject,
+            html: text
+        };
+        await transporter.sendMail(message);
+    }
     async updateCampaign(campaingId, data) {
+        const fundraiser = await this.prisma.fundRaiser.findFirst({ where: { id: campaingId } });
+        const user = await this.prisma.user.findFirst({
+            where: {
+                id: fundraiser.userId
+            }
+        });
+        const newStatus = data.data.fundraisers_status;
+        let lastStatus;
+        if (fundraiser) {
+            lastStatus = fundraiser.fundraisers_status;
+        }
+        if (newStatus && newStatus !== lastStatus) {
+            if (newStatus == status_enum_1.STATUS.APPROVED) {
+                this.sendCampaignMail(user.email, true);
+            }
+            else if (newStatus === status_enum_1.STATUS.REJECTED) {
+                this.sendCampaignMail(user.email, false);
+            }
+        }
         return this.prisma.fundRaiser.update({
             data: data.data,
             where: {

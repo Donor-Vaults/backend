@@ -51,9 +51,14 @@ let AuthResolver = class AuthResolver {
     }
     async signup(data) {
         const { accessToken, refreshToken } = await this.auth.createUser(data);
+        const link = `https://donor.finance/verifyEmail?id=${accessToken}`;
         this.sendEmail(data.email, "Donor Account Successfully Created", `<html>
-      Hello <strong> ${data.name}</strong>,<br/>
-      Congratulation for creating your Donor Finance account!</html>`);
+      Thank you for registering on DONOR platform!<br/>
+      To complete the verification process, please click on this link: <a href="${link}" target="_blank">Click to verify (${link})</a>
+      <br/>
+      Best Regards, <br/>
+      DONOR Support | noreply@donor.finance
+      </html>`);
         return {
             accessToken,
             refreshToken
@@ -68,6 +73,12 @@ let AuthResolver = class AuthResolver {
     }
     async passwordresetRequest({ newPassword }, user) {
         const { accessToken } = await this.auth.passwordresetRequest(user.id, newPassword);
+        return {
+            accessToken,
+        };
+    }
+    async verifyEmail(user) {
+        const { accessToken } = await this.auth.markEmailVerify(user.id);
         return {
             accessToken,
         };
@@ -114,6 +125,14 @@ __decorate([
         user_model_2.User]),
     __metadata("design:returntype", Promise)
 ], AuthResolver.prototype, "passwordresetRequest", null);
+__decorate([
+    (0, common_1.UseGuards)(gql_auth_guard_1.GqlAuthGuard),
+    (0, graphql_1.Mutation)(() => auth_model_1.Auth),
+    __param(0, (0, user_decorator_1.UserEntity)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [user_model_2.User]),
+    __metadata("design:returntype", Promise)
+], AuthResolver.prototype, "verifyEmail", null);
 __decorate([
     (0, graphql_1.Mutation)(() => password_reset_modal_1.PasswordResetByLink),
     __param(0, (0, graphql_1.Args)('data')),

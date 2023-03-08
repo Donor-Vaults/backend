@@ -40,6 +40,9 @@ export class CampaignsResolver {
     @UserEntity()
     user: User
   ): Promise<any> {
+    if (!user.isVerified) {
+      throw new Error("Can't Create Campaign ")
+    }
     const campaign = await this.campaignService.createCampaign(user, args);
     return campaign;
   }

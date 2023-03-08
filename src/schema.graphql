@@ -232,6 +232,7 @@ type Mutation {
   signup(data: SignupInput!): Auth!
   updateCampaign(data: FundRaiserUpdateInput!, where: FundRaiserWhereUniqueInput!): FundRaiser!
   updateUser(data: UserUpdateInput!, where: UserWhereUniqueInput!): USER!
+  verifyEmail: Auth!
 }
 
 input NestedBoolFilter {

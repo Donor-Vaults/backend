@@ -56,6 +56,16 @@ let AuthService = class AuthService {
             userId: user.id,
         });
     }
+    async markEmailVerify(userId) {
+        const user = await this.prisma.user.findUnique({ where: { id: userId } });
+        if (!user) {
+            throw new common_1.NotFoundException(`No user found for userId: ${userId}`);
+        }
+        await this.prisma.user.update({ where: { id: userId }, data: { isVerified: true } });
+        return this.generateTokens({
+            userId: user.id,
+        });
+    }
     async passwordresetRequestByEmail(email) {
         const user = await this.prisma.user.findFirst({ where: { email: email.toLowerCase() } });
         if (!user)

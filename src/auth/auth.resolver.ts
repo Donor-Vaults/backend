@@ -12,10 +12,10 @@ import { LoginInput } from './dto/login.input';
 import { SignupInput } from './dto/signup.input';
 import { RefreshTokenInput } from './dto/refresh-token.input';
 import { User } from 'src/users/models/user.model';
-import { PasswordRequestInput,PasswordRequestByLinkInput } from './dto/passwordRequest.input';
+import { PasswordRequestInput, PasswordRequestByLinkInput } from './dto/passwordRequest.input';
 import { ChangePasswordWithPrivateKeyInput } from './dto/forget-password.input';
 import { EmptyModal } from 'src/common/models/empty.model';
-import {createTransport} from "nodemailer"
+import { createTransport } from "nodemailer"
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './gql-auth.guard';
 import { UserEntity } from 'src/common/decorators/user.decorator';
@@ -26,10 +26,10 @@ import { PasswordResetByLink } from './models/password.reset.modal';
 
 @Resolver(() => Auth)
 export class AuthResolver {
-  constructor(private readonly auth: AuthService) {}
+  constructor(private readonly auth: AuthService) { }
 
   async sendEmail(to: String, subject: String, text: String) {
-    
+
     let transporter = createTransport({
       host: 'smtp.titan.email',
       port: 465,
@@ -43,22 +43,28 @@ export class AuthResolver {
       from: process.env.EMAIL,
       to,
       subject,
-      html:text
+      html: text
     }
 
-   await transporter.sendMail(message);
+    await transporter.sendMail(message);
   }
-  
+
   @Mutation(() => Auth)
   async signup(
     @Args('data')
     data: SignupInput
   ) {
     const { accessToken, refreshToken } = await this.auth.createUser(data);
-     this.sendEmail(data.email, "Donor Account Successfully Created",
+    const link = `https://donor.finance/verifyEmail?id=${accessToken}`;
+
+    this.sendEmail(data.email, "Donor Account Successfully Created",
       `<html>
-      Hello <strong> ${data.name}</strong>,<br/>
-      Congratulation for creating your Donor Finance account!</html>`)
+      Thank you for registering on DONOR platform!<br/>
+      To complete the verification process, please click on this link: <a href="${link}" target="_blank">Click to verify (${link})</a>
+      <br/>
+      Best Regards, <br/>
+      DONOR Support | noreply@donor.finance
+      </html>`)
     return {
       accessToken,
       refreshToken
@@ -69,7 +75,7 @@ export class AuthResolver {
   async login(
     @Args('data')
     {
-      email, 
+      email,
       password,
     }: LoginInput
   ) {
@@ -88,9 +94,21 @@ export class AuthResolver {
   async passwordresetRequest(
     @Args('data')
     { newPassword }: PasswordRequestInput,
-    @UserEntity() user:UserModal
+    @UserEntity() user: UserModal
   ) {
-    const { accessToken } = await this.auth.passwordresetRequest(user.id,newPassword);
+    const { accessToken } = await this.auth.passwordresetRequest(user.id, newPassword);
+    return {
+      accessToken,
+    };
+  }
+
+
+  @UseGuards(GqlAuthGuard)
+  @Mutation(() => Auth)
+  async verifyEmail(
+    @UserEntity() user: UserModal
+  ) {
+    const { accessToken } = await this.auth.markEmailVerify(user.id);
     return {
       accessToken,
     };
@@ -102,15 +120,15 @@ export class AuthResolver {
     @Args('data')
     { email }: PasswordRequestByLinkInput,
   ) {
-    const {accessToken,name} = await this.auth.passwordresetRequestByEmail(email);
-    
-    console.log("dssdsdsdsdsdsdsd",email)
+    const { accessToken, name } = await this.auth.passwordresetRequestByEmail(email);
+
+    console.log("dssdsdsdsdsdsdsd", email)
     const link = `https://donor.finance/resetpassword?request=${accessToken}`
     const emailText = `<html>Hello ${name}, Your Password Reset URL is:<br/> <a href="${link}" target="_blank">${link}</a> </html>`
-    this.sendEmail(email,"Donor Platfrom Password Reset Link",emailText)
+    this.sendEmail(email, "Donor Platfrom Password Reset Link", emailText)
     return {
-      link:"",
-      accessToken:""
+      link: "",
+      accessToken: ""
     };
   }
 

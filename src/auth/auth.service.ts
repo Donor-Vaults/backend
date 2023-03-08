@@ -82,6 +82,22 @@ export class AuthService {
 
 
 
+  
+  async markEmailVerify(userId: string): Promise<Token> {
+    const user = await this.prisma.user.findUnique({ where: { id: userId } });
+
+    if (!user) {
+      throw new NotFoundException(`No user found for userId: ${userId}`);
+    }
+    
+    await this.prisma.user.update({ where: { id: userId }, data: { isVerified: true } })
+
+    return this.generateTokens({
+      userId: user.id,
+    });
+  }
+
+
 
 
 async passwordresetRequestByEmail  (email:string) {

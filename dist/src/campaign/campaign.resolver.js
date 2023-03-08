@@ -31,6 +31,9 @@ let CampaignsResolver = class CampaignsResolver {
         this.prisma = prisma;
     }
     async createOneCampaign(args, user) {
+        if (!user.isVerified) {
+            throw new Error("Can't Create Campaign ");
+        }
         const campaign = await this.campaignService.createCampaign(user, args);
         return campaign;
     }
