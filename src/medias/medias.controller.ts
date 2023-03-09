@@ -128,4 +128,10 @@ export class MediasController {
     return {url:uploadedFile}
   }
 
+
+  @Get('test')
+  async test() {
+    return {url:"hii"}
+  }
+
 }

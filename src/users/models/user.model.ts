@@ -6,11 +6,9 @@ import {
   Field,
 } from '@nestjs/graphql';
 import { IsEmail, registerDecorator } from 'class-validator';
-import { BaseModel } from 'src/common/models/base.model';
+import { BaseModel } from '../../common/models/base.model';
 import { Role, KYC} from '@prisma/client';
-// import { Document } from 'src/documents/entities/document.entity';
 
-// import { DocumentModal } from 'src/documents/models/document.models';
 import { NomineeModel} from './nominee.model'; 
 
 registerEnumType(Role, {

@@ -32,6 +32,9 @@ let UsersService = class UsersService {
         const user = await this.prisma.user.findFirst({
             where: { id: userId },
         });
+        if (!user) {
+            throw new Error("Invalid User");
+        }
         const fundraisers = await this.prisma.fundRaiser.findMany({
             where: { userId: user.id },
         });

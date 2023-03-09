@@ -1,10 +1,10 @@
 import { EnumSTATUSFieldUpdateOperationsInput } from '@generated/prisma/enum-status-field-update-operations.input';
-import { STATUS } from '@generated/prisma/status.enum';
+import { STATUS } from '../@generated/prisma/status.enum';
 import { Injectable, BadRequestException } from '@nestjs/common';
 import { PrismaService } from 'nestjs-prisma';
-import { CreateOneFundRaiserArgs } from 'src/@generated/fund-raiser/create-one-fund-raiser.args';
-import { UpdateOneFundRaiserArgs } from 'src/@generated/fund-raiser/update-one-fund-raiser.args';
-import { User } from 'src/@generated/user/user.model';
+import { CreateOneFundRaiserArgs } from '../@generated/fund-raiser/create-one-fund-raiser.args';
+import { UpdateOneFundRaiserArgs } from '../@generated/fund-raiser/update-one-fund-raiser.args';
+import { User } from '../@generated/user/user.model';
 import { FundRaiserCreateInput } from './dto/createCampaign.input';
 // import { FundRaiserUpdateInput } from './dto/updateCampaign.input';
 import { createTransport } from "nodemailer"

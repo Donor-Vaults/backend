@@ -9,8 +9,8 @@ import {
   Info,
 } from '@nestjs/graphql';
 import { ConflictException, UseGuards } from '@nestjs/common';
-import { UserEntity } from 'src/common/decorators/user.decorator';
-import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
+import { UserEntity } from '../common/decorators/user.decorator';
+import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { UsersService } from './users.service';
 // import { User } from './models/user.model';
 import { ChangePasswordInput } from './dto/change-password.input';
@@ -20,11 +20,11 @@ import { NomineeInput } from './dto/createNominee.input';
 import { Nominee } from './entities/nominee.entity';
 import { UserIdArgs } from './args/user-id.args';
 import { PrismaClientKnownRequestError } from '@prisma/client/runtime';
-import { User as UserModal } from 'src/@generated/user/user.model'
-import { UserWhereInput } from 'src/@generated/user/user-where.input';
+import { User as UserModal } from '../@generated/user/user.model'
+import { UserWhereInput } from '../@generated/user/user-where.input';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { UpdateOneUserArgs } from 'src/@generated/user/update-one-user.args';
+import { UpdateOneUserArgs } from '../@generated/user/update-one-user.args';
 
 
 // 

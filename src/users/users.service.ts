@@ -1,14 +1,13 @@
 import { PrismaService } from 'nestjs-prisma';
 import { ConflictException, Injectable } from '@nestjs/common';
-import { PasswordService } from 'src/auth/password.service';
+import { PasswordService } from '../auth/password.service';
 import { ChangePasswordInput } from './dto/change-password.input';
 import { UpdateUserInput } from './dto/update-user.input';
 import { NomineeInput } from './dto/createNominee.input';
-import { Token } from '../../src/auth/models/token.model';
 import { Prisma } from '@prisma/client';
 import { Args } from '@nestjs/graphql';
 import { User } from './models/user.model';
-import { UpdateOneUserArgs } from 'src/@generated/user/update-one-user.args';
+import { UpdateOneUserArgs } from '../@generated/user/update-one-user.args';
 @Injectable()
 export class UsersService {
   constructor(
@@ -41,6 +40,9 @@ export class UsersService {
       where: { id: userId },
     });
 
+    if (!user) {
+      throw new Error("Invalid User")
+    }
     const fundraisers = await this.prisma.fundRaiser.findMany({
       where: { userId: user.id },
     });

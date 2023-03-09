@@ -11,15 +11,14 @@ import { Token } from './models/token.model';
 import { LoginInput } from './dto/login.input';
 import { SignupInput } from './dto/signup.input';
 import { RefreshTokenInput } from './dto/refresh-token.input';
-import { User } from 'src/users/models/user.model';
+import { User } from '../users/models/user.model';
 import { PasswordRequestInput, PasswordRequestByLinkInput } from './dto/passwordRequest.input';
 import { ChangePasswordWithPrivateKeyInput } from './dto/forget-password.input';
-import { EmptyModal } from 'src/common/models/empty.model';
 import { createTransport } from "nodemailer"
 import { UseGuards } from '@nestjs/common';
 import { GqlAuthGuard } from './gql-auth.guard';
-import { UserEntity } from 'src/common/decorators/user.decorator';
-import { User as UserModal } from 'src/@generated/user/user.model'
+import { UserEntity } from '../common/decorators/user.decorator';
+import { User as UserModal } from '../@generated/user/user.model'
 import { PasswordResetByLink } from './models/password.reset.modal';
 
 

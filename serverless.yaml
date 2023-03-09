@@ -1,0 +1,34 @@
+service: serverless-example
+
+custom:
+  serverless-offline:
+    noPrependStageInUrl: true
+plugins:
+  - serverless-offline
+
+provider:
+  name: aws
+  runtime: nodejs14.x
+  deploymentMethod: direct
+
+	
+package:
+  exclude:
+    - src
+    - '@generated'
+    - test
+  excludeDevDependencies: true
+
+
+
+
+functions:
+  main:
+    handler: dist/index.handler
+    events:
+      - http:
+          method: ANY
+          path: /
+      - http:
+          method: ANY
+          path: '{proxy+}'

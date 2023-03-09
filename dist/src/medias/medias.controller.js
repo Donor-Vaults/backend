@@ -59,6 +59,9 @@ let MediasController = class MediasController {
         const uploadedFile = await this.uploadFileToS3(file.buffer, file.originalname);
         return { url: uploadedFile };
     }
+    async test() {
+        return { url: "hii" };
+    }
 };
 __decorate([
     (0, common_1.Post)('upload'),
@@ -69,6 +72,13 @@ __decorate([
     __metadata("design:paramtypes", [Object]),
     __metadata("design:returntype", Promise)
 ], MediasController.prototype, "uploadFile", null);
+__decorate([
+    (0, common_1.Get)('test'),
+    openapi.ApiResponse({ status: 200 }),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", []),
+    __metadata("design:returntype", Promise)
+], MediasController.prototype, "test", null);
 MediasController = __decorate([
     (0, common_1.Controller)('documents'),
     __metadata("design:paramtypes", [config_1.ConfigService])

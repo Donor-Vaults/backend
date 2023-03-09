@@ -5,6 +5,9 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.AppModule = void 0;
 const graphql_1 = require("@nestjs/graphql");
@@ -16,7 +19,7 @@ const app_service_1 = require("./app.service");
 const app_resolver_1 = require("./app.resolver");
 const auth_module_1 = require("./auth/auth.module");
 const users_module_1 = require("./users/users.module");
-const config_2 = require("./common/configs/config");
+const config_2 = __importDefault(require("./common/configs/config"));
 const logging_middleware_1 = require("./common/middleware/logging.middleware");
 const apollo_1 = require("@nestjs/apollo");
 const gql_config_service_1 = require("./gql-config.service");

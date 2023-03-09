@@ -14,16 +14,16 @@ import {
 import { FundRaiserCreateInput } from './dto/createCampaign.input';
 import { PrismaService } from 'nestjs-prisma';
 import { UseGuards } from '@nestjs/common';
-import { GqlAuthGuard } from 'src/auth/gql-auth.guard';
+import { GqlAuthGuard } from '../auth/gql-auth.guard';
 import { CampaignsService } from './campaign.service';
-import { FundRaiser } from 'src/@generated/fund-raiser/fund-raiser.model';
-import { CreateOneFundRaiserArgs } from 'src/@generated/fund-raiser/create-one-fund-raiser.args';
-import { UserEntity } from 'src/common/decorators/user.decorator';
-import { User } from 'src/@generated/user/user.model';
-import { FundRaiserWhereInput } from 'src/@generated/fund-raiser/fund-raiser-where.input';
+import { FundRaiser } from '../@generated/fund-raiser/fund-raiser.model';
+import { CreateOneFundRaiserArgs } from '../@generated/fund-raiser/create-one-fund-raiser.args';
+import { UserEntity } from '../common/decorators/user.decorator';
+import { User } from '../@generated/user/user.model';
+import { FundRaiserWhereInput } from '../@generated/fund-raiser/fund-raiser-where.input';
 import { GraphQLResolveInfo } from 'graphql';
 import { PrismaSelect } from '@paljs/plugins';
-import { UpdateOneFundRaiserArgs } from 'src/@generated/fund-raiser/update-one-fund-raiser.args';
+import { UpdateOneFundRaiserArgs } from '../@generated/fund-raiser/update-one-fund-raiser.args';
 
 @Resolver(() => FundRaiser)
 export class CampaignsResolver {

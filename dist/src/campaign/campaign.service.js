@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.CampaignsService = void 0;
-const status_enum_1 = require("../../@generated/prisma/status.enum");
+const status_enum_1 = require("../@generated/prisma/status.enum");
 const common_1 = require("@nestjs/common");
 const nestjs_prisma_1 = require("nestjs-prisma");
 const nodemailer_1 = require("nodemailer");
