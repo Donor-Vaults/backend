@@ -22,6 +22,7 @@
   "scripts": {
     "prebuild": "rimraf dist",
     "build": "nest build",
+    "rundeploy":"npm install && node dist/main",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "start": "nest start",
     "dev": "nest start --watch",
