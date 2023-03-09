@@ -15,6 +15,7 @@ async function bootstrap() {
     const configService = app.get(config_1.ConfigService);
     const nestConfig = configService.get('nest');
     app.enableCors();
+    console.log("dwsdsd", process.env.DATABASE_URL);
     await app.listen(process.env.PORT || nestConfig.port || 3000);
 }
 bootstrap();

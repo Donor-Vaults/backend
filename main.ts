@@ -58,6 +58,7 @@ async function bootstrap() {
   // const expressApp = app.getHttpAdapter().getInstance();
   // return serverlessExpress({ app: expressApp });
 
+  console.log("dwsdsd",process.env.DATABASE_URL)
 
   // return {expressApp}
   await app.listen(process.env.PORT || nestConfig.port || 3000);

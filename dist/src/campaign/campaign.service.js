@@ -18,7 +18,7 @@ let CampaignsService = class CampaignsService {
     constructor(prisma) {
         this.prisma = prisma;
     }
-    async sendCampaignMail(email, isForApproval) {
+    async sendCampaignMail(to, isForApproval) {
         let transporter = (0, nodemailer_1.createTransport)({
             host: 'smtp.titan.email',
             port: 465,
@@ -39,7 +39,7 @@ let CampaignsService = class CampaignsService {
     </html>`;
         const message = {
             from: process.env.EMAIL,
-            email,
+            to,
             subject,
             html: text
         };
@@ -52,11 +52,17 @@ let CampaignsService = class CampaignsService {
                 id: fundraiser.userId
             }
         });
-        const newStatus = data.data.fundraisers_status;
         let lastStatus;
         if (fundraiser) {
             lastStatus = fundraiser.fundraisers_status;
         }
+        const newFundaraiser = await this.prisma.fundRaiser.update({
+            data: data.data,
+            where: {
+                id: campaingId,
+            },
+        });
+        const newStatus = newFundaraiser.fundraisers_status;
         if (newStatus && newStatus !== lastStatus) {
             if (newStatus == status_enum_1.STATUS.APPROVED) {
                 this.sendCampaignMail(user.email, true);
@@ -65,12 +71,7 @@ let CampaignsService = class CampaignsService {
                 this.sendCampaignMail(user.email, false);
             }
         }
-        return this.prisma.fundRaiser.update({
-            data: data.data,
-            where: {
-                id: campaingId,
-            },
-        });
+        return newFundaraiser;
     }
     async createCampaign(user, data) {
         return this.prisma.fundRaiser.create({

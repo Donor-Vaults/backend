@@ -13,7 +13,7 @@ import { createTransport } from "nodemailer"
 export class CampaignsService {
   constructor(private prisma: PrismaService) { }
   
-  async sendCampaignMail(email: string, isForApproval:boolean) {
+  async sendCampaignMail(to: string, isForApproval:boolean) {
     let transporter = createTransport({
       host: 'smtp.titan.email',
       port: 465,
@@ -37,7 +37,8 @@ export class CampaignsService {
 
     const message = {
       from: process.env.EMAIL,
-      email,
+     to,
+      
       subject,
       html: text
     }
@@ -53,11 +54,18 @@ export class CampaignsService {
       where: {
       id:fundraiser.userId
     }})
-    const newStatus: any = data.data.fundraisers_status as unknown as STATUS;
     let lastStatus;
     if (fundraiser ) {
       lastStatus = fundraiser.fundraisers_status
     }
+  
+    const newFundaraiser = await  this.prisma.fundRaiser.update({
+      data:data.data,
+      where: {
+        id: campaingId,
+      },
+    });
+    const newStatus: any = newFundaraiser.fundraisers_status
     if (newStatus && newStatus !== lastStatus) {
       if (newStatus == STATUS.APPROVED) {
         this.sendCampaignMail(user.email,true);
@@ -66,13 +74,7 @@ export class CampaignsService {
       }
     }
     
-    
-    return this.prisma.fundRaiser.update({
-      data:data.data,
-      where: {
-        id: campaingId,
-      },
-    });
+    return newFundaraiser
   }
 
   async createCampaign(user: User, data: CreateOneFundRaiserArgs) {
