@@ -10,3 +10,9 @@ prisma/migrations/dev/
 
 uploads/
 .aws
+
+# Elastic Beanstalk Files
+.elasticbeanstalk/*
+!.elasticbeanstalk/*.cfg.yml
+!.elasticbeanstalk/*.global.yml
+
